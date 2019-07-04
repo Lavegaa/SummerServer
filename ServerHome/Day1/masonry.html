@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            background: black;
+            margin: 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="http://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>
+        $(document).ready(()=>{
+
+            var newMansonry = () => {
+                for(var i = 0; i<100;i++){
+                    $('<div></div>').addClass('box').css({
+                        width: 100,
+                        height: Math.floor(Math.random()*100)+50
+                    }).appendTo('body');
+                }
+            }; 
+            newMansonry();
+
+            $(window).scroll(()=>{
+                var scrollHeight = $(window).scrollTop() + $(window).height();
+                var documentHeight = $(document).height();
+
+                if(scrollHeight >= documentHeight){
+                    newMansonry();
+                }
+           });
+
+            
+            $('body').masonry({
+                columnWidth: 100
+            });
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

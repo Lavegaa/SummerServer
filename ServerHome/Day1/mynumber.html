@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = () => {
+            var input_1 = document.querySelectorAll('input')[0];
+            var input_2 = document.querySelectorAll('input')[1];
+        
+            input_1.onkeydown = () => {
+                if(input_1.value.length>=6){
+                    input_2.focus();
+                }
+            };
+
+            input_2.onkeydown = (event) => {
+                
+                var event = event || window.evnet;
+
+                if(event.keyCode == 8 && input_2.value.length == 0){
+                    input_1.focus();
+                }
+
+            };
+        };
+    </script>
+</head>
+<body>
+    <input type = "text" maxlength="6">
+    <span>-</span>
+    <input type = "text" maxlength="7">
+</body>
+</html>
