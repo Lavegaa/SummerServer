@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <style>
+
+
+    </style>
+</head>
+<body>
+
+        <div class="select">
+            <div>
+                <select id='info' onchange="changeLoaction()">
+                    <option value='-1' selected>정보</option>
+                    <option value=''>전체</option>
+                </select>
+                <select id='what' onchange="changeLoaction()">
+                    <option value='-1' selected>분야</option>
+                    <option value='12'>관광지</option>
+                    <option value='14'>문화시설</option>
+                    <option value='15'>축제공연행사</option>
+                    <option value='25'>여행코스</option>
+                    <option value='28'>레포츠</option>
+                    <option value='32'>숙박</option>
+                    <option value='38'>쇼핑</option>
+                    <option value='39'>음식점</option>
+                </select>
+                <select id='local' onchange="changeLoaction()">
+                    <option value='-1' selected>지역</option>
+                    <option value=''>전체</option>
+                    <option value='1'>서울</option>
+                    <option value='2'>인천</option>
+                    <option value='3'>대전</option>
+                    <option value='4'>대구</option>
+                    <option value='5'>광주</option>
+                    <option value='6'>부산</option>
+                    <option value='7'>울산</option>
+                    <option value='8'>세종시</option>
+                    <option value='31'>경기도</option>
+                    <option value='32'>강원도</option>
+                    <option value='33'>충청북도</option>
+                    <option value='34'>충청남도</option>
+                    <option value='35'>경상북도</option>
+                    <option value='36'>경상남도</option>
+                    <option value='37'>전라북도</option>
+                    <option value='38'>전라남도</option>
+                    <option value='39'>제주도</option>
+                </select>
+    
+            </div>
+        
+        </div>
+
+        <div class="content" id="">
+
+        </div>
+    
+</body>
+<script>
+
+    // var xhr = new XMLHttpRequest();
+    // var url = 'http://api.visitkorea.or.kr/openapi/service/rest/RusService/detailCommon'; /*URL*/
+    // var queryParams = '?' + encodeURIComponent('ServiceKey') + '='+'cwyFeQEPSJIrfRgEHDRFoed1y6Qfqkjo9liyGkJbZ6F0GE6nd0Ajm%2FhFjjpUJF6JGz2%2BUz1kT5xsdcYVbAPTaA%3D%3D'; /*Service Key*/
+    // queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /*한 페이지 결과 수*/
+    // queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /*현재 페이지 번호*/
+    // queryParams += '&' + encodeURIComponent('MobileOS') + '=' + encodeURIComponent('ETC'); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
+    // queryParams += '&' + encodeURIComponent('MobileApp') + '=' + encodeURIComponent('AppTest'); /*서비스명=어플명*/
+    // queryParams += '&' + encodeURIComponent('contentId') + '=' + encodeURIComponent('1891502'); /*콘텐츠 ID*/
+    // queryParams += '&' + encodeURIComponent('contentTypeId') + '=' + encodeURIComponent(''); /*관광타입(관광지, 숙박 등) ID*/
+    // queryParams += '&' + encodeURIComponent('defaultYN') + '=' + encodeURIComponent('Y'); /*기본정보 조회여부*/
+    // queryParams += '&' + encodeURIComponent('firstImageYN') + '=' + encodeURIComponent('Y'); /*원본, 썸네일 대표이미지 조회여부*/
+    // queryParams += '&' + encodeURIComponent('areacodeYN') + '=' + encodeURIComponent('Y'); /*지역코드,시군구코드 조회여부*/
+    // queryParams += '&' + encodeURIComponent('catcodeYN') + '=' + encodeURIComponent('Y'); /*대,중,소 분류코드 조회여부*/
+    // queryParams += '&' + encodeURIComponent('addrinfoYN') + '=' + encodeURIComponent('Y'); /*주소, 상세주소 조회여부*/
+    // queryParams += '&' + encodeURIComponent('mapinfoYN') + '=' + encodeURIComponent('Y'); /*좌표 X,Y 조회여부*/
+    // queryParams += '&' + encodeURIComponent('overviewYN') + '=' + encodeURIComponent('Y'); /*콘텐츠 개요 조회여부*/
+    // queryParams += '&' + encodeURIComponent('transGuideYN') + '=' + encodeURIComponent('Y'); /*길안내조회*/
+    // xhr.open('GET', url + queryParams);
+    // xhr.onreadystatechange = function () {
+    //     if (this.readyState == 4) {
+    //         console.log('Status: '+this.status+' Headers: '+JSON.stringify(this.getAllResponseHeaders())+' Body: '+this.responseText);
+    //     }
+    // };
+
+    // xhr.send('');
+
+    function changeLoaction(){
+        var select1 = $("#info").val();
+		var select2 = $("#local").val();
+        var select3 = $("#what").val();
+
+		if (select1 != -1 && select2 != -1 && select3 != -1) {
+            $(".content").text("기다려주세요...");
+			var url =
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey=cwyFeQEPSJIrfRgEHDRFoed1y6Qfqkjo9liyGkJbZ6F0GE6nd0Ajm%2FhFjjpUJF6JGz2%2BUz1kT5xsdcYVbAPTaA%3D%3D&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=A&cat1=" +
+				select1 + "&contentTypeId="+ select3 +"&areaCode=" + select2 + "&sigunguCode=4&listYN=Y"
+        
+                var xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        var result = this.responseText;
+                        $(".content").html("");
+                        $(result).find("item").each(function(){
+                            $(".content").append("<h1>"+$(this).find("title").text()+"<h1>");
+                            $(".content").append("<h3>주소 : "+$(this).find("addr1").text() +"<h3>");
+                            $(".content").append("<p>전화번호 : "+$(this).find("tel").text() +"<p>");
+                            $(".content").append("<img src="+$(this).find("firstimage").text()+">");
+
+                        })
+                    
+                    }   
+                 };
+            xmlhttp.open("GET",url,true);
+            xmlhttp.send();
+
+        }
+
+    };
+
+    
+
+        
+</script>
+</html>
