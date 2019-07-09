@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var result = this.responseText;
+                    var date = $(result).find("lastBuildDate").text();
+                    $("#date").html("<h1>"+date+"</h1>");
+                    $("#content").html(result);
+                }
+            };
+            xmlhttp.open("GET","http://www.chosun.com/site/data/rss/rss.xml");
+            xmlhttp.send();
+        });
+    </script>
+</head>
+<body>
+    <div id="date">
+    </div>
+    <div id="content">
+    </div>
+</body>
+</html>

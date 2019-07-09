@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <style>
+        .box{
+            border-top: 1px solid;
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <select id="city" name="city" size="4"  onchange="changeCity()">
+
+    </select>
+    <div id="name" style="font-size:4rem; font-weight: 500;">지역을 선택해 주세요</div>
+
+    <div id="time">
+    </div>
+    <div id="content">
+        <div id="0"  >
+            <div id="tmef_0"></div>
+            <div id="wf_0"></div>
+            <div id="tmx_0"></div>
+            <div id="tmn_0"></div>
+        </div>
+
+        <div id="1"  >
+                <div id="tmef_1"></div>
+                <div id="wf_1"></div>
+                <div id="tmx_1"></div>
+                <div id="tmn_1"></div>
+            </div>
+
+            <div id="2"  >
+                    <div id="tmef_2"></div>
+                    <div id="wf_2"></div>
+                    <div id="tmx_2"></div>
+                    <div id="tmn_2"></div>
+                </div>
+
+                <div id="3"  >
+                        <div id="tmef_3"></div>
+                        <div id="wf_3"></div>
+                        <div id="tmx_3"></div>
+                        <div id="tmn_3"></div>
+                    </div>
+
+                    <div id="4"  >
+                            <div id="tmef_4"></div>
+                            <div id="wf_4"></div>
+                            <div id="tmx_4"></div>
+                            <div id="tmn_4"></div>
+                        </div>
+
+                        <div id="5"  >
+                                <div id="tmef_5"></div>
+                                <div id="wf_5"></div>
+                                <div id="tmx_5"></div>
+                                <div id="tmn_5"></div>
+                            </div>
+
+                            <div id="6"  >
+                                    <div id="tmef_6"></div>
+                                    <div id="wf_6"></div>
+                                    <div id="tmx_6"></div>
+                                    <div id="tmn_6"></div>
+                                </div>
+
+                                <div id="7"  >
+                                        <div id="tmef_7"></div>
+                                        <div id="wf_7"></div>
+                                        <div id="tmx_7"></div>
+                                        <div id="tmn_7"></div>
+                                    </div>
+
+                                    <div id="8"  >
+                                            <div id="tmef_8"></div>
+                                            <div id="wf_8"></div>
+                                            <div id="tmx_8"></div>
+                                            <div id="tmn_8"></div>
+                                        </div>
+
+                                        <div id="9"  >
+                                                <div id="tmef_9"></div>
+                                                <div id="wf_9"></div>
+                                                <div id="tmx_9"></div>
+                                                <div id="tmn_9"></div>
+                                            </div>
+
+                                            <div id="10"  >
+                                                    <div id="tmef_10"></div>
+                                                    <div id="wf_10"></div>
+                                                    <div id="tmx_10"></div>
+                                                    <div id="tmn_10"></div>
+                                                </div>
+
+                                                <div id="11"  >
+                                                        <div id="tmef_11"></div>
+                                                        <div id="wf_11"></div>
+                                                        <div id="tmx_11"></div>
+                                                        <div id="tmn_11"></div>
+                                                    </div>
+
+                                                    <div id="12"  >
+                                                            <div id="tmef_12"></div>
+                                                            <div id="wf_12"></div>
+                                                            <div id="tmx_12"></div>
+                                                            <div id="tmn_12"></div>
+                                                        </div>
+
+                                                        <div id="13"  >
+                                                                <div id="tmef_13"></div>
+                                                                <div id="wf_13"></div>
+                                                                <div id="tmx_13"></div>
+                                                                <div id="tmn_13"></div>
+                                                            </div>
+
+    </div>
+
+    <script>
+        var selectValue = "";
+    
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var result = this.responseText;
+                    
+                    var city = $(result).find("city");
+
+                    $.each(city,function(i,r){
+                        
+                        $("#city").append("<option>"+r.textContent+"</option>");
+                    })
+   
+                }
+            };
+
+            xmlhttp.open("GET","http://www.weather.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108");
+            xmlhttp.send();
+            function changeCity(){ 
+                var citySelect = document.getElementById("city");
+                selectValue = citySelect.options[citySelect.selectedIndex].value;
+                $("#name").text(selectValue);
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        var result = this.responseText; 
+                        var innerIndex = 1;        
+                        for(let i = citySelect.selectedIndex*13; i<citySelect.selectedIndex*13+13; i++){
+                            console.log(i);
+                            var detail = $(result).find("data")[i];
+                            var dayinfo = $(detail).find("tmef").text();
+                            var wf = $(detail).find("wf").text();
+                            var tmx = $(detail).find("tmx").text();
+                            var tmn = $(detail).find("tmn").text();
+                            $("#"+innerIndex).addClass("box");
+                            $("#tmef_"+innerIndex).text(dayinfo);
+                            $("#wf_"+innerIndex).text("날씨: "+wf);
+                            $("#tmx_"+innerIndex).text("최고온도: "+tmx);
+                            $("#tmn_"+innerIndex).text("최저온도: "+tmn);
+                            innerIndex++;
+                        }
+                        innerIndex=1;       
+
+                    }
+            
+                };
+                xmlhttp.open("GET","http://www.weather.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108");
+                xmlhttp.send();
+                
+            }
+            
+            
+           
+
+        
+    </script>
+</body>
+
+
+</html>
