@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cheerio-httpcli": "^0.7.4",
     "express": "^4.17.1",
-    "net": "^1.0.2"
+    "express-error-handler": "^1.1.0",
+    "net": "^1.0.2",
+    "url": "^0.11.0",
+    "xml2js": "^0.4.19"
   }
 }
